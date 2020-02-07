@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
-
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(R.string.menu_home);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -90,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         myAsyncTask.registrationMyAsyncCallBack(this);
         myAsyncTask.execute();
     }
+
+
 
     private void selectMenuItem(int index) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
