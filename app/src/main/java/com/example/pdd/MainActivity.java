@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         //selectMenuItem(R.id.nav_home);
         // }else if  selectMenuItem2(R.id.nav_home);
 
-        selectMenuItem2(R.id.nav_home); // сейчас первый этот экран, поиск по автомобилю и водиле
+        selectMenuItem(R.id.nav_home); // сейчас первый этот экран, поиск по автомобилю и водиле
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         /*   mSettings = MainActivity.this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);*/

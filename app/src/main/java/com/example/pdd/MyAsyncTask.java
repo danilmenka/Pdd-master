@@ -10,8 +10,10 @@ import android.util.Log;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
+import com.example.pdd.MyHttpClient;
 import com.example.pdd.Objects.Car;
 import com.example.pdd.Objects.Driver;
+import com.example.pdd.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
