@@ -1,4 +1,4 @@
-package com.example.pdd;
+package com.example.pdd.Requests;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,15 +41,15 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
     private SharedPreferences mSettings;
     private ProgressDialog dialog;
     private static final String APP_PREFERENCES = "PddSettings";
-    interface MyAsyncCallBack{
+    public interface MyAsyncCallBack{
         void doMyAsyncCallBack(String answer);
     }
-    MyAsyncCallBack myAsyncCallBack;
+    public MyAsyncCallBack myAsyncCallBack;
     public void registrationMyAsyncCallBack(MyAsyncCallBack myAsyncCallBack){
         this.myAsyncCallBack = myAsyncCallBack;
     }
     //My astyc m
-    MyAsyncTask(Context context){
+    public MyAsyncTask(Context context){
         this.context = context;
     }
 

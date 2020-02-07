@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.pdd.DBHelp.DBHelperDrivers;
+import com.example.pdd.Requests.MyAsyncTask;
 import com.example.pdd.ui.Autos.AutosFragment;
 import com.example.pdd.ui.Osago.OsagoFrag;
 import com.example.pdd.ui.cabinet.ShareCabinet;
@@ -23,9 +24,7 @@ import com.example.pdd.ui.home.HomeFragment;
 import com.example.pdd.ui.home2.Home2Fragment;
 import com.example.pdd.ui.push.PushFragment;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
