@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/searchNumber4"
+        android:orderInCategory="100"
+        android:title="Поиск по автомобилю и водителю"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ser4"
+        android:orderInCategory="100"
+        android:title="Поиск штрафов по номеру постановления"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/pay4"
+        android:orderInCategory="100"
+        android:title="Оплаченные штрафы"
+        app:showAsAction="never" />
+</menu>

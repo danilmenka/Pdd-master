@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/editAddNameAuto"
+        android:layout_width="330dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent2"
+        android:ems="10"
+        android:hint="  Номер автомобиля"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editAddRegistrNumber"
+        android:layout_width="330dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent2"
+        android:ems="10"
+        android:hint="  Номер свидетельства о регистрации"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editAddNameAuto"
+        app:layout_constraintStart_toStartOf="@+id/editAddNameAuto"
+        app:layout_constraintTop_toBottomOf="@+id/editAddNameAuto" />
+
+    <EditText
+        android:id="@+id/editAddRegistr"
+        android:layout_width="330dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="  Номер удостворения"
+        android:background="@color/colorAccent2"
+        app:layout_constraintEnd_toEndOf="@+id/editAddRegistrNumber"
+        app:layout_constraintStart_toStartOf="@+id/editAddRegistrNumber"
+        app:layout_constraintTop_toBottomOf="@+id/editAddRegistrNumber" />
+
+    <Button
+        android:id="@+id/butOfEditAddAuto"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorAccent3"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:text="Поиск"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editAddRegistr"
+        app:layout_constraintStart_toStartOf="@+id/editAddRegistr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96" />
+</androidx.constraintlayout.widget.ConstraintLayout>

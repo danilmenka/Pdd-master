@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Staffdetails_Activity">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Номер постановления"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Дата постановления"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Сумма к оплате"
+        app:layout_constraintEnd_toEndOf="@+id/textView11"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Старая цена"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Статья КоАП РФ"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Кем выдан"
+        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Фото штрафа"
+        app:layout_constraintEnd_toEndOf="@+id/textView15"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <ImageView
+        android:id="@+id/imageViewOfStaffDetail"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        tools:srcCompat="@tools:sample/avatars[3]" />
+
+    <Button
+        android:id="@+id/butLookMap"
+        android:background="@color/colorAccent3"
+        android:textColor="@color/colorAccent5"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Посмотреть на карте"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <Button
+        android:id="@+id/butPayStaff"
+        android:background="@color/colorAccent3"
+        android:textColor="@color/colorAccent5"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Оплатить"
+        app:layout_constraintEnd_toEndOf="@+id/butLookMap"
+        app:layout_constraintStart_toStartOf="@+id/butLookMap"
+        app:layout_constraintTop_toBottomOf="@+id/butLookMap" />
+
+    <Button
+        android:id="@+id/buttAppeal"
+        android:background="@color/colorAccent3"
+        android:textColor="@color/colorAccent5"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Обжаловать"
+        app:layout_constraintEnd_toEndOf="@+id/butPayStaff"
+        app:layout_constraintStart_toStartOf="@+id/butPayStaff"
+        app:layout_constraintTop_toBottomOf="@+id/butPayStaff" />
+
+    <Button
+        android:id="@+id/butHide"
+        android:background="@color/colorAccent3"
+        android:textColor="@color/colorAccent5"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="Скрыть"
+        app:layout_constraintEnd_toEndOf="@+id/buttAppeal"
+        app:layout_constraintStart_toStartOf="@+id/buttAppeal"
+        app:layout_constraintTop_toBottomOf="@+id/buttAppeal" />
+
+    <TextView
+        android:id="@+id/NumberPostOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:text="1111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/DatePostOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/NumberPostOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/NumberPostOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/NumberPostOfStaffDetail" />
+
+    <TextView
+        android:id="@+id/SumOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/DatePostOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/DatePostOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/DatePostOfStaffDetail" />
+
+    <TextView
+        android:id="@+id/oldPriceOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/SumOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/SumOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/SumOfStaffDetail" />
+
+    <TextView
+        android:id="@+id/KoAPOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/oldPriceOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/oldPriceOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/oldPriceOfStaffDetail" />
+
+    <TextView
+        android:id="@+id/whoGiveOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/KoAPOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/KoAPOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/KoAPOfStaffDetail" />
+
+    <TextView
+        android:id="@+id/photoOfStaffDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1111"
+        app:layout_constraintEnd_toEndOf="@+id/whoGiveOfStaffDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/whoGiveOfStaffDetail"
+        app:layout_constraintTop_toBottomOf="@+id/whoGiveOfStaffDetail" />
+</androidx.constraintlayout.widget.ConstraintLayout>
