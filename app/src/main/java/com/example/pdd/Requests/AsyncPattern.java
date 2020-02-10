@@ -87,8 +87,6 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
         return null;
     }
 
-
-
     public String getStringPOST(String request, List name) {
         String answer = "ErrorPOST void " + request;
         try {

@@ -121,6 +121,16 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+
+
+
+
+
+
+
+
         return null;
     }
 
@@ -225,5 +235,48 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         }
 
         return TOKEN;
+    }
+    public void getFine(String url){
+        List nameValuePairs;
+        int pages=0;
+        String items;
+        nameValuePairs= new ArrayList(1);
+        nameValuePairs.add(new BasicNameValuePair("page", "1"));
+        answerHTTP = getStringPOST(url,nameValuePairs);
+        //Узнаем кол-во страниц
+        try {
+        JSONObject j1 = new JSONObject(answerHTTP);
+        pages = j1.getInt("totalPage");
+        items = j1.getString("items");
+        }
+        catch (JSONException e) {
+                e.printStackTrace();
+            }
+        if(pages!=0) {
+            try {
+                DBHelperCars dbHelper;
+                dbHelper = new DBHelperCars(context);
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
+                database.delete(DBHelperCars.TABLE_CARS, null, null);
+            } catch (Exception e) {
+                Log.e("Error DBCars: ", "Db is not insert");
+            }
+            try {
+
+                JSONArray jsonArray = new JSONArray(answerHTTP);
+                Car cars[] = new Car[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    if (jsonArray.getString(i).toString() != "false") {
+                        cars[i] = new Car(jsonArray.getJSONObject(i));
+                        cars[i].insertDbCar(context);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
 }
