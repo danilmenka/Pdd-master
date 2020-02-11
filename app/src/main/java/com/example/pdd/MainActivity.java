@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
 import com.example.pdd.Requests.MyAsyncTask;
 import com.example.pdd.ui.Autos.AutosFragment;
@@ -164,16 +165,16 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     public void doMyAsyncCallBack(String answer) {
         Log.e("TESTING",answer);
 
-        DBHelperDrivers dbHelper;
-        dbHelper = new DBHelperDrivers(this);
+        DBHelperCars dbHelper;
+        dbHelper = new DBHelperCars(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        Cursor cursor = database.query(DBHelperDrivers.TABLE_DRIVERS, null, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelperCars.TABLE_CARS, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_ID);
-            int nameIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_CREATEDATE);
-            int emailIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_IDDRIVER);
+            int idIndex = cursor.getColumnIndex(DBHelperCars.KEY_IDCAR);
+            int nameIndex = cursor.getColumnIndex(DBHelperCars.KEY_STSNUM);
+            int emailIndex = cursor.getColumnIndex(DBHelperCars.KEY_TITLE);
             do {
                 Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
                         ", name = " + cursor.getString(nameIndex) +

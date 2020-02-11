@@ -265,9 +265,10 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-                for (int k = 2;k>pages;k++){
+                if (pages>1)
+                for (int k = 1;k<pages;k++){
                     nameValuePairs= new ArrayList(1);
-                    nameValuePairs.add(new BasicNameValuePair("page",Integer.toString(k)));
+                    nameValuePairs.add(new BasicNameValuePair("page",Integer.toString(k+1)));
                     answerHTTP = getStringPOST(url,nameValuePairs);
                     try {
                         JSONObject j1 = new JSONObject(answerHTTP);

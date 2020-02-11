@@ -43,7 +43,7 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
                 List nameValuePairs = new ArrayList(2);
                 nameValuePairs.add(new BasicNameValuePair("licenseNum",String.valueOf( editText2.getText())));
                 nameValuePairs.add(new BasicNameValuePair("title", String.valueOf( editText1.getText())));
-                AsyncPattern asyncPattern= new AsyncPattern(Edit_Add_Driver_Activity.this,"driver",nameValuePairs,true);
+                AsyncPattern asyncPattern= new AsyncPattern(Edit_Add_Driver_Activity.this,"driver",nameValuePairs,true,false);
                 asyncPattern.registrationAsyncPatternCallBack(Edit_Add_Driver_Activity.this);
                 asyncPattern.execute();
                 }

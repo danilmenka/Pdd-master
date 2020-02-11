@@ -21,6 +21,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -40,8 +41,10 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
     private String tokenString="";
     private String request="";
     private Boolean postValue = true;
+    private Boolean putValue = false;
     private List nameValuePairs;
     private SharedPreferences mSettings;
+    private Boolean deleteValue = false;
     private ProgressDialog dialog;
     private static final String APP_PREFERENCES = "PddSettings";
     public interface AsyncPatternCallBack{
@@ -52,11 +55,21 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
         this.asyncPatternCallBack = asyncPatternCallBack;
     }
 
-    public AsyncPattern(Context context, String request, List nameValuePairs, Boolean postValue){
+    public AsyncPattern(Context context, String request, List nameValuePairs, Boolean postValue,Boolean putValue,Boolean deleteValue){
         this.context = context;
         this.request = request;
         this.nameValuePairs = nameValuePairs;
         this.postValue = postValue;
+        this.putValue = putValue;
+        this.deleteValue = deleteValue;
+    }
+    public AsyncPattern(Context context, String request, List nameValuePairs, Boolean postValue,Boolean putValue){
+        this.context = context;
+        this.request = request;
+        this.nameValuePairs = nameValuePairs;
+        this.postValue = postValue;
+        this.putValue = putValue;
+        this.deleteValue = false;
     }
 
     protected void onPreExecute() {
@@ -80,10 +93,16 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
         else {tokenString = getToken();}
 
         if (postValue){
-        answerHTTP = getStringPOST(request, nameValuePairs);} //Запрос с параметрами
-        else {
-        //Запрос на водителей
-        answerHTTP = getStringGET(request, nameValuePairs);} //Запрос с параметрами
+            answerHTTP = getStringPOST(request, nameValuePairs);}
+        if (!putValue&&!postValue&&!deleteValue) {
+            answerHTTP = getStringGET(request, nameValuePairs);}
+        if (putValue){
+            answerHTTP = getStringPUT(request, nameValuePairs);
+        }
+        if (deleteValue){
+            answerHTTP = getStringDELETE(request);
+        }
+
         return null;
     }
 
@@ -96,6 +115,55 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
                 htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
             HttpResponse response;
             htopost.setEntity(new UrlEncodedFormEntity(name, "UTF-8"));
+            response = httpclient.execute(htopost);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                String result = convertStreamToString(instream);
+                Log.e("ZZZ",result);
+                answer = result;
+                instream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return answer;
+    }
+    public String getStringPUT(String request, List name) {
+        String answer = "ErrorPOST void " + request;
+        try {
+            HttpClient httpclient = new MyHttpClient(context);
+
+            HttpPut htopost = new HttpPut(context.getString(R.string.URL)+ request);
+            if(request.hashCode()!="user".hashCode())
+                htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
+            HttpResponse response;
+            htopost.setEntity(new UrlEncodedFormEntity(name, "UTF-8"));
+            response = httpclient.execute(htopost);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                String result = convertStreamToString(instream);
+                Log.e("ZZZ",result);
+                answer = result;
+                instream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return answer;
+    }
+
+    public String getStringDELETE(String request) {
+        String answer = "ErrorPOST void " + request;
+        try {
+            HttpClient httpclient = new MyHttpClient(context);
+
+            HttpPut htopost = new HttpPut(context.getString(R.string.URL)+ request);
+            htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
+            HttpResponse response;
             response = httpclient.execute(htopost);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
