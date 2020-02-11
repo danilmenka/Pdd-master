@@ -127,6 +127,7 @@ public class ListViewAdapterForCars extends BaseAdapter implements AsyncPattern.
                             public void onClick(DialogInterface arg0, int arg1) {
                                 List nameValuePairs = new ArrayList(1);
                                 nameValuePairs.add(new BasicNameValuePair("stsnum","g"));
+
                                 AsyncPattern asyncPattern= new AsyncPattern(context,"car/"+id[position],nameValuePairs,false,false,true);
                                 asyncPattern.registrationAsyncPatternCallBack(ListViewAdapterForCars.this);
                                 idPosition = id[position];

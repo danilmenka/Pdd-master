@@ -72,8 +72,6 @@ public class Edit_Add_Auto_Activity extends AppCompatActivity implements AsyncPa
             }
 
 
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +105,6 @@ public class Edit_Add_Auto_Activity extends AppCompatActivity implements AsyncPa
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void doAsyncPatternCallBack(String answer) {
         answer = answer.trim();
@@ -123,5 +120,23 @@ public class Edit_Add_Auto_Activity extends AppCompatActivity implements AsyncPa
             db.update(DBHelperCars.TABLE_CARS, cv, DBHelperCars.KEY_IDCAR + "=" + String.valueOf(id), null);
             this.finish();
         }
+        try {
+            JSONObject jsonObject = new JSONObject(answer);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBHelperCars.KEY_IDCAR,jsonObject.getString("id"));
+            contentValues.put(DBHelperCars.KEY_REGNUM,String.valueOf(editText2.getText()));
+            contentValues.put(DBHelperCars.KEY_STSNUM,String.valueOf(editText1.getText()));
+            contentValues.put(DBHelperCars.KEY_TITLE,String.valueOf(editText3.getText()));
+            contentValues.put(DBHelperCars.KEY_LAST,"txt");
+            contentValues.put(DBHelperCars.KEY_DESCR,"txt");
+            contentValues.put(DBHelperCars.KEY_DATE,"txt");
+            DBHelperCars dbHelper;
+            dbHelper = new DBHelperCars(Edit_Add_Auto_Activity.this);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            database.insert(DBHelperCars.TABLE_CARS, null, contentValues);
+            this.finish();
+        }catch (Exception e){Log.e("Error","not new");}
+
+
     }
 }

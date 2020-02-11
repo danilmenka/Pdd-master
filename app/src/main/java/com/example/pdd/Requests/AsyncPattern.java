@@ -19,6 +19,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -161,7 +162,7 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
         try {
             HttpClient httpclient = new MyHttpClient(context);
 
-            HttpPut htopost = new HttpPut(context.getString(R.string.URL)+ request);
+            HttpDelete htopost = new HttpDelete(context.getString(R.string.URL)+ request);
             htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
             HttpResponse response;
             response = httpclient.execute(htopost);

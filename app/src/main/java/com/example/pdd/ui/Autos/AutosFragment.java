@@ -94,7 +94,6 @@ public class AutosFragment extends Fragment implements ListViewAdapterForCars.Ca
         }
         View empty = getActivity().findViewById(R.id.textEmpty);
         lview.setEmptyView(empty);
-
         super.onResume();
     }
 

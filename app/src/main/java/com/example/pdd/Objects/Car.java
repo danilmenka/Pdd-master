@@ -109,10 +109,10 @@ public class Car {
         contentValues.put(DBHelperCars.KEY_TITLE,title);
         contentValues.put(DBHelperCars.KEY_DESCR,descr);
         contentValues.put(DBHelperCars.KEY_DATE,createDate);
-        DBHelperCars dbHelper;
-        dbHelper = new DBHelperCars(context);
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-        database.insert(DBHelperCars.TABLE_CARS, null, contentValues);
+            DBHelperCars dbHelper;
+            dbHelper = new DBHelperCars(context);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            database.insert(DBHelperCars.TABLE_CARS, null, contentValues);
        // database.delete(DBHelperCars.TABLE_CARS, null, null);
     }
 
