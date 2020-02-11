@@ -168,14 +168,12 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         dbHelper = new DBHelperDrivers(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-
-
         Cursor cursor = database.query(DBHelperDrivers.TABLE_DRIVERS, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_ID);
             int nameIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_CREATEDATE);
-            int emailIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_DESCR);
+            int emailIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_IDDRIVER);
             do {
                 Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
                         ", name = " + cursor.getString(nameIndex) +

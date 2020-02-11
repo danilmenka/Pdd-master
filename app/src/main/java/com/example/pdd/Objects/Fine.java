@@ -1,11 +1,20 @@
 package com.example.pdd.Objects;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.pdd.DBHelp.DBHelperCars;
+import com.example.pdd.DBHelp.DBHelperFines;
 import com.example.pdd.Objects.Car;
 import com.example.pdd.Objects.Driver;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Fine {
     public Fine(String id, String postNum, String postDate, String suma, String totalSuma, String discountDate, String koapCode,
-                String koapText, String address, Boolean paid, Car car, Driver driver, String wirepaymentpurpose, String wirekbk,
+                String koapText, String address, String paid, String car, String driver, String wirepaymentpurpose, String wirekbk,
                 String wireuserinn, String wirekpp, String wirebankname, String wirebankaccount, String wirebankbik, String wireoktmo,
                 String createDate) {
         this.id = id;
@@ -30,7 +39,33 @@ public class Fine {
         this.wireoktmo = wireoktmo;
         this.createDate = createDate;
     }
-
+    public Fine(JSONObject json1){
+        try {
+         id = json1.getString("id");
+         postNum = json1.getString("postNum");
+         postDate= json1.getString("postDate");
+         suma = json1.getString("suma");
+         totalSuma = json1.getString("totalSuma");
+         discountDate = json1.getString("discountDate");
+         koapCode = json1.getString("koapCode");
+         koapText = json1.getString("koapText");
+         address = json1.getString("address");
+         paid = json1.getString("paid");
+         car = json1.getString("car");
+         driver = json1.getString("driver");
+         wirepaymentpurpose = json1.getString("wirepaymentpurpose");
+         wirekbk = json1.getString("wirekbk");
+         wireuserinn = json1.getString("wireuserinn");
+         wirekpp = json1.getString("wirekpp");
+         wirebankname = json1.getString("wirebankname");
+         wirebankaccount = json1.getString("wirebankaccount");
+         wirebankbik = json1.getString("wirebankbik");
+         wireoktmo = json1.getString("wireoktmo");
+         createDate = json1.getString("createDate");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+         }
     private String id;
     private String postNum;
     private String postDate;
@@ -40,9 +75,9 @@ public class Fine {
     private String koapCode;
     private String koapText;
     private String address;
-    private Boolean paid;
-    private Car car;
-    private Driver driver;
+    private String paid;
+    private String car;
+    private String driver;
     private String wirepaymentpurpose;
     private String wirekbk;
     private String wireuserinn;
@@ -89,15 +124,15 @@ public class Fine {
         return address;
     }
 
-    public Boolean getPaid() {
+    public String getPaid() {
         return paid;
     }
 
-    public Car getCar() {
+    public String getCar() {
         return car;
     }
 
-    public Driver getDriver() {
+    public String getDriver() {
         return driver;
     }
 
@@ -137,89 +172,37 @@ public class Fine {
         return createDate;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public void setPostNum(String postNum) {
-        this.postNum = postNum;
-    }
 
-    public void setPostDate(String postDate) {
-        this.postDate = postDate;
-    }
+    public void insertDbFine(Context context){
+        ContentValues contentValues = new ContentValues();
+                contentValues.put(DBHelperFines.KEY_IDFINE,id);
+                contentValues.put(DBHelperFines.KEY_POSTNUM,postNum);
+                contentValues.put(DBHelperFines.KEY_POSTDATE,postDate);
+                contentValues.put(DBHelperFines.KEY_SUMA,suma);
+                contentValues.put(DBHelperFines.KEY_TOTALSUMA,totalSuma);
+                contentValues.put(DBHelperFines.KEY_DISCOUNTDATE,discountDate);
+                contentValues.put(DBHelperFines.KEY_KOAPCODE,koapCode);
+                contentValues.put(DBHelperFines.KEY_KOAPTEXT,koapText);
+                contentValues.put(DBHelperFines.KEY_ADDRESS,address);
+                contentValues.put(DBHelperFines.KEY_PAID,paid);
+                contentValues.put(DBHelperFines.KEY_CAR,car);
+                contentValues.put(DBHelperFines.KEY_DRIVER,driver);
+                contentValues.put(DBHelperFines.KEY_WIREPAYMENTPURPOSE,wirepaymentpurpose);
+                contentValues.put(DBHelperFines.KEY_WIREKBK,wirekbk);
+                contentValues.put(DBHelperFines.KEY_WIREUSERINN,wireuserinn);
+                contentValues.put(DBHelperFines.KEY_WIREKPP,wirekpp);
+                contentValues.put(DBHelperFines.KEY_WIREBANKNAME,wirebankname);
+                contentValues.put(DBHelperFines.KEY_WIREBANKACCOUNT,wirebankaccount);
+                contentValues.put(DBHelperFines.KEY_WIREBANKBIK,wirebankbik);
+                contentValues.put(DBHelperFines.KEY_WIREOKTMO,wireoktmo);
+                contentValues.put(DBHelperFines.KEY_CREATEDATE,createDate);
 
-    public void setSuma(String suma) {
-        this.suma = suma;
-    }
+        DBHelperFines dbHelper;
+        dbHelper = new DBHelperFines(context);
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        database.insert(DBHelperFines.TABLE_FINES, null, contentValues);
 
-    public void setTotalSuma(String totalSuma) {
-        this.totalSuma = totalSuma;
     }
-
-    public void setDiscountDate(String discountDate) {
-        this.discountDate = discountDate;
-    }
-
-    public void setKoapCode(String koapCode) {
-        this.koapCode = koapCode;
-    }
-
-    public void setKoapText(String koapText) {
-        this.koapText = koapText;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public void setWirepaymentpurpose(String wirepaymentpurpose) {
-        this.wirepaymentpurpose = wirepaymentpurpose;
-    }
-
-    public void setWirekbk(String wirekbk) {
-        this.wirekbk = wirekbk;
-    }
-
-    public void setWireuserinn(String wireuserinn) {
-        this.wireuserinn = wireuserinn;
-    }
-
-    public void setWirekpp(String wirekpp) {
-        this.wirekpp = wirekpp;
-    }
-
-    public void setWirebankname(String wirebankname) {
-        this.wirebankname = wirebankname;
-    }
-
-    public void setWirebankaccount(String wirebankaccount) {
-        this.wirebankaccount = wirebankaccount;
-    }
-
-    public void setWirebankbik(String wirebankbik) {
-        this.wirebankbik = wirebankbik;
-    }
-
-    public void setWireoktmo(String wireoktmo) {
-        this.wireoktmo = wireoktmo;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
 
 }

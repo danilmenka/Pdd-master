@@ -10,9 +10,11 @@ import android.util.Log;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
+import com.example.pdd.DBHelp.DBHelperFines;
 import com.example.pdd.MyHttpClient;
 import com.example.pdd.Objects.Car;
 import com.example.pdd.Objects.Driver;
+import com.example.pdd.Objects.Fine;
 import com.example.pdd.R;
 
 import org.apache.http.HttpEntity;
@@ -121,16 +123,8 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
-
+        getFine("fine/unpaid");
+        getFine("fine/paid");
         return null;
     }
 
@@ -208,6 +202,7 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         return sb.toString();
     }
     @Override
+
     protected void onPostExecute(String result) {
        // dialog.dismiss();
         myAsyncCallBack.doMyAsyncCallBack(answerHTTP);
@@ -239,7 +234,7 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
     public void getFine(String url){
         List nameValuePairs;
         int pages=0;
-        String items;
+        String items="";
         nameValuePairs= new ArrayList(1);
         nameValuePairs.add(new BasicNameValuePair("page", "1"));
         answerHTTP = getStringPOST(url,nameValuePairs);
@@ -252,29 +247,49 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         catch (JSONException e) {
                 e.printStackTrace();
             }
-        if(pages!=0) {
             try {
-                DBHelperCars dbHelper;
-                dbHelper = new DBHelperCars(context);
+                DBHelperFines dbHelper;
+                dbHelper = new DBHelperFines(context);
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
-                database.delete(DBHelperCars.TABLE_CARS, null, null);
+                database.delete(DBHelperFines.TABLE_FINES, null, null);
             } catch (Exception e) {
                 Log.e("Error DBCars: ", "Db is not insert");
             }
             try {
-
-                JSONArray jsonArray = new JSONArray(answerHTTP);
-                Car cars[] = new Car[jsonArray.length()];
+                JSONArray jsonArray = new JSONArray(items);
+                Fine fines[] = new Fine[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    if (jsonArray.getString(i).toString() != "false") {
-                        cars[i] = new Car(jsonArray.getJSONObject(i));
-                        cars[i].insertDbCar(context);
-                    }
+                        fines[i] = new Fine(jsonArray.getJSONObject(i));
+                        fines[i].insertDbFine(context);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+                for (int k = 2;k>pages;k++){
+                    nameValuePairs= new ArrayList(1);
+                    nameValuePairs.add(new BasicNameValuePair("page",Integer.toString(k)));
+                    answerHTTP = getStringPOST(url,nameValuePairs);
+                    try {
+                        JSONObject j1 = new JSONObject(answerHTTP);
+                        items = j1.getString("items");
+                        try {
+                            JSONArray jsonArray = new JSONArray(items);
+                            Fine fines[] = new Fine[jsonArray.length()];
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                fines[i] = new Fine(jsonArray.getJSONObject(i));
+                                fines[i].insertDbFine(context);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (Exception e) {
+                        Log.e("Error DBCars: ", "Db is not insert");
+                    }
+
+                }
+
+
 
 
 

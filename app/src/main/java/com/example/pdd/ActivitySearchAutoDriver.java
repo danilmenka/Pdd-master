@@ -20,7 +20,6 @@ public class ActivitySearchAutoDriver extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Поиск по автомобилю и водителю");
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main,menu);

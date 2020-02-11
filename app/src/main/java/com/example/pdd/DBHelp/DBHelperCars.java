@@ -25,7 +25,7 @@ public class DBHelperCars  extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_CARS + "(" +
                 KEY_ID + " integer primary key," +
-                KEY_IDCAR + " text," +
+                KEY_IDCAR + " text unique," +
                 KEY_REGNUM + " text," +
                 KEY_STSNUM + " text," +
                 KEY_LAST + " text," +

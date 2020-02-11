@@ -24,8 +24,8 @@ public class DBHelperDrivers  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_DRIVERS + "(" +
                 KEY_ID + " integer primary key," +
-                KEY_IDDRIVER + " text," +
-                KEY_LICENSENUM + " text," +
+                KEY_IDDRIVER + " text unique," +
+                KEY_LICENSENUM + " text not null," +
                 KEY_SCANDATE + " text," +
                 KEY_TITLE + " text," +
                 KEY_DESCR + " text," +
