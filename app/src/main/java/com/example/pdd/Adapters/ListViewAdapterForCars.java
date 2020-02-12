@@ -88,11 +88,11 @@ public class ListViewAdapterForCars extends BaseAdapter implements AsyncPattern.
         {
             convertView = inflater.inflate(R.layout.list_item, null);
             holder = new ViewHolder();
-            holder.txtViewName = (TextView) convertView.findViewById(R.id.idName);
-            holder.txtViewRegNumber = (TextView) convertView.findViewById(R.id.idRegNumber);
-            holder.txtViewSvid = (TextView) convertView.findViewById(R.id.IdSvid);
-            holder.editButton = (Button) convertView.findViewById(R.id.buttonEditAuto);
-            holder.deleteButton = (Button) convertView.findViewById(R.id.buttonDeleteAuto);
+            holder.txtViewName = (TextView) convertView.findViewById(R.id.text_car_one1);
+            holder.txtViewRegNumber = (TextView) convertView.findViewById(R.id.text_car_two1);
+            holder.txtViewSvid = (TextView) convertView.findViewById(R.id.text_car_three1);
+            holder.editButton = (Button) convertView.findViewById(R.id.text_car_four);
+            holder.deleteButton = (Button) convertView.findViewById(R.id.text_car_four1);
 
             convertView.setTag(holder);
         }

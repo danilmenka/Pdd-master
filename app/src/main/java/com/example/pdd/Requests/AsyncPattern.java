@@ -76,11 +76,11 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
     protected void onPreExecute() {
         mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         //Всплывающее окно при работе потока
-      /*  dialog = new ProgressDialog(context);
+        dialog = new ProgressDialog(context);
         dialog.setMessage("Загрузка...");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
-        dialog.show();*/
+        dialog.show();
         super.onPreExecute();
     }
 
@@ -88,8 +88,9 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
     protected String doInBackground(String... strings) {
         //Запрос на токен
         if (mSettings.contains("Token")) {
-            tokenString = (mSettings.getString("Token",
-                    ""));
+            tokenString = "45bc1ca635f090393ffc0236c6e6666ab0c876b1";
+          /*  tokenString = (mSettings.getString("Token",
+                    ""));*/
             if (tokenString.equals("")) tokenString = getToken(); }
         else {tokenString = getToken();}
 
@@ -161,7 +162,7 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
         String answer = "ErrorPOST void " + request;
         try {
             HttpClient httpclient = new MyHttpClient(context);
-
+            Log.e("TEEEST",answer);
             HttpDelete htopost = new HttpDelete(context.getString(R.string.URL)+ request);
             htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
             HttpResponse response;

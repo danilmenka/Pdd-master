@@ -60,11 +60,11 @@ public class Edit_Add_Auto_Activity extends AppCompatActivity implements AsyncPa
         }
 
         if (name.isEmpty()) {
-            getSupportActionBar().setTitle("Добавить автомобиль");
+            getSupportActionBar().setTitle("Добавление автомобиля");
             button.setText("Добавить автомобиль");
         }
         else {
-            getSupportActionBar().setTitle("Редактировать автомобиль");
+            getSupportActionBar().setTitle("Редактирование автомобиля");
             button.setText("Редактировать автомобиль");
             editText3.setText(name);
             editText2.setText(regNumber);

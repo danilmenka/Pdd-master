@@ -74,17 +74,13 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         //selectMenuItem(R.id.nav_home);
         // }else if  selectMenuItem2(R.id.nav_home);
 
-        selectMenuItem(R.id.nav_home); // сейчас первый этот экран, поиск по автомобилю и водиле
+
+
+
+
+        selectMenuItem2(R.id.nav_home); // сейчас первый этот экран, поиск по автомобилю и водиле
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        /*   mSettings = MainActivity.this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);*/
-
-        /*
-        String tokenString="";
-        if (mSettings.contains("Token"))  //проверка на существование токена
-            tokenString = (mSettings.getString("Token",
-                    ""));*/
-
         MyAsyncTask myAsyncTask = new MyAsyncTask(MainActivity.this);
         myAsyncTask.registrationMyAsyncCallBack(this);
         myAsyncTask.execute();
@@ -165,16 +161,16 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     public void doMyAsyncCallBack(String answer) {
         Log.e("TESTING",answer);
 
-        DBHelperCars dbHelper;
-        dbHelper = new DBHelperCars(this);
+        DBHelperDrivers dbHelper;
+        dbHelper = new DBHelperDrivers(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        Cursor cursor = database.query(DBHelperCars.TABLE_CARS, null, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelperDrivers.TABLE_DRIVERS, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(DBHelperCars.KEY_IDCAR);
-            int nameIndex = cursor.getColumnIndex(DBHelperCars.KEY_STSNUM);
-            int emailIndex = cursor.getColumnIndex(DBHelperCars.KEY_TITLE);
+            int idIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_IDDRIVER);
+            int nameIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_TITLE);
+            int emailIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_ID);
             do {
                 Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
                         ", name = " + cursor.getString(nameIndex) +
