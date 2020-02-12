@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
 import com.example.pdd.DBHelp.DBHelperFines;
+import com.example.pdd.DBHelp.DBHelperUnpaidFines;
 import com.example.pdd.MyHttpClient;
 import com.example.pdd.Objects.Car;
 import com.example.pdd.Objects.Driver;
@@ -125,7 +126,7 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        getFine("fine/unpaid");
+        getUnpaidFine("fine/unpaid");
         getFine("fine/paid");
         return null;
     }
@@ -291,6 +292,66 @@ public class MyAsyncTask extends AsyncTask<String,String,String> {
                     }
 
                 }
+
+    }
+    public void getUnpaidFine(String url){
+        List nameValuePairs;
+        int pages=0;
+        String items="";
+        nameValuePairs= new ArrayList(1);
+        nameValuePairs.add(new BasicNameValuePair("page", "1"));
+        answerHTTP = getStringPOST(url,nameValuePairs);
+        //Узнаем кол-во страниц
+        try {
+            JSONObject j1 = new JSONObject(answerHTTP);
+            pages = j1.getInt("totalPage");
+            items = j1.getString("items");
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            DBHelperUnpaidFines dbHelper;
+            dbHelper = new DBHelperUnpaidFines(context);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            database.delete(DBHelperUnpaidFines.TABLE_UNPAID_FINES, null, null);
+        } catch (Exception e) {
+            Log.e("Error DBCars: ", "Db is not insert");
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(items);
+            Fine fines[] = new Fine[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                fines[i] = new Fine(jsonArray.getJSONObject(i));
+                fines[i].insertDbUnpaidFine(context);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (pages>1)
+            for (int k = 1;k<pages;k++){
+                nameValuePairs= new ArrayList(1);
+                nameValuePairs.add(new BasicNameValuePair("page",Integer.toString(k+1)));
+                answerHTTP = getStringPOST(url,nameValuePairs);
+                try {
+                    JSONObject j1 = new JSONObject(answerHTTP);
+                    items = j1.getString("items");
+                    try {
+                        JSONArray jsonArray = new JSONArray(items);
+                        Fine fines[] = new Fine[jsonArray.length()];
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            fines[i] = new Fine(jsonArray.getJSONObject(i));
+                            fines[i].insertDbUnpaidFine(context);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Error DBCars: ", "Db is not insert");
+                }
+
+            }
 
 
 

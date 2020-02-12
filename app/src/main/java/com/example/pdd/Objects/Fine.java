@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperFines;
+import com.example.pdd.DBHelp.DBHelperUnpaidFines;
 import com.example.pdd.Objects.Car;
 import com.example.pdd.Objects.Driver;
 
@@ -203,6 +204,34 @@ public class Fine {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         database.insert(DBHelperFines.TABLE_FINES, null, contentValues);
 
+    }
+    public void insertDbUnpaidFine(Context context){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelperUnpaidFines.KEY_IDFINE,id);
+        contentValues.put(DBHelperUnpaidFines.KEY_POSTNUM,postNum);
+        contentValues.put(DBHelperUnpaidFines.KEY_POSTDATE,postDate);
+        contentValues.put(DBHelperUnpaidFines.KEY_SUMA,suma);
+        contentValues.put(DBHelperUnpaidFines.KEY_TOTALSUMA,totalSuma);
+        contentValues.put(DBHelperUnpaidFines.KEY_DISCOUNTDATE,discountDate);
+        contentValues.put(DBHelperUnpaidFines.KEY_KOAPCODE,koapCode);
+        contentValues.put(DBHelperUnpaidFines.KEY_KOAPTEXT,koapText);
+        contentValues.put(DBHelperUnpaidFines.KEY_ADDRESS,address);
+        contentValues.put(DBHelperUnpaidFines.KEY_PAID,paid);
+        contentValues.put(DBHelperUnpaidFines.KEY_CAR,car);
+        contentValues.put(DBHelperUnpaidFines.KEY_DRIVER,driver);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREPAYMENTPURPOSE,wirepaymentpurpose);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREKBK,wirekbk);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREUSERINN,wireuserinn);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREKPP,wirekpp);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREBANKNAME,wirebankname);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREBANKACCOUNT,wirebankaccount);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREBANKBIK,wirebankbik);
+        contentValues.put(DBHelperUnpaidFines.KEY_WIREOKTMO,wireoktmo);
+        contentValues.put(DBHelperUnpaidFines.KEY_CREATEDATE,createDate);
+        DBHelperUnpaidFines dbHelper;
+        dbHelper = new DBHelperUnpaidFines(context);
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        database.insert(DBHelperUnpaidFines.TABLE_UNPAID_FINES, null, contentValues);
     }
 
 }

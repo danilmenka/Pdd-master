@@ -17,6 +17,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
+import com.example.pdd.DBHelp.DBHelperFines;
+import com.example.pdd.DBHelp.DBHelperUnpaidFines;
 import com.example.pdd.Requests.MyAsyncTask;
 import com.example.pdd.ui.Autos.AutosFragment;
 import com.example.pdd.ui.Osago.OsagoFrag;
@@ -191,16 +193,16 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     public void doMyAsyncCallBack(String answer) {
         Log.e("TESTING",answer);
 
-        DBHelperDrivers dbHelper;
-        dbHelper = new DBHelperDrivers(this);
+        DBHelperUnpaidFines dbHelper;
+        dbHelper = new DBHelperUnpaidFines(this);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        Cursor cursor = database.query(DBHelperDrivers.TABLE_DRIVERS, null, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelperUnpaidFines.TABLE_UNPAID_FINES, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_IDDRIVER);
-            int nameIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_TITLE);
-            int emailIndex = cursor.getColumnIndex(DBHelperDrivers.KEY_ID);
+            int idIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_TOTALSUMA);
+            int nameIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_POSTNUM);
+            int emailIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_PAID);
             do {
                 Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
                         ", name = " + cursor.getString(nameIndex) +
