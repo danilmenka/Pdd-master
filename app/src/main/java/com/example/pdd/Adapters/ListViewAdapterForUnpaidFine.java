@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.Edit_Add_Auto_Activity;
@@ -77,6 +79,8 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
 
         Button paiButton;
 
+        CardView cardView;
+
     }
 
     public View getView(final int position, View convertView, ViewGroup parent)
@@ -95,6 +99,8 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             holder.txtSuma = (TextView) convertView.findViewById(R.id.text_unpaid5);
             holder.txtDiscountDate = (TextView) convertView.findViewById(R.id.text_unpaid7);
             holder.paiButton = (Button) convertView.findViewById(R.id.text_unpaid6);
+
+            holder.cardView = (CardView)convertView.findViewById(R.id.card_view_unpaid);
             convertView.setTag(holder);
         }
         else
@@ -122,8 +128,13 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             }
         });
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TAGFFFFFFFFFF",id[position]);
+            }
+        });
+
         return convertView;
     }
-    
-
 }
