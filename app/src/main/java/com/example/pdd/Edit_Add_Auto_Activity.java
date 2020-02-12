@@ -136,7 +136,5 @@ public class Edit_Add_Auto_Activity extends AppCompatActivity implements AsyncPa
             database.insert(DBHelperCars.TABLE_CARS, null, contentValues);
             this.finish();
         }catch (Exception e){Log.e("Error","not new");}
-
-
     }
 }

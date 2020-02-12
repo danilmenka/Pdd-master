@@ -2,6 +2,7 @@ package com.example.pdd;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     OsagoFrag osagoFrag;
     PushFragment pushFragment;
     FragmentTransaction fragmentTransaction;
-
+    Boolean dbAvailable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(R.string.menu_home);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        dbAvailable = false;
         autosFragment= new AutosFragment();
         shareCabinet=new ShareCabinet();
         driverFragment2=new driverFragment();
@@ -73,12 +74,39 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         //if( такое то такое то){
         //selectMenuItem(R.id.nav_home);
         // }else if  selectMenuItem2(R.id.nav_home);
+        try {
+            DBHelperCars dbHelper;
+            dbHelper = new DBHelperCars(MainActivity.this);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            Cursor cursor = database.query(DBHelperCars.TABLE_CARS, null, null, null, null, null, null);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            long numRows = DatabaseUtils.queryNumEntries(db, DBHelperCars.TABLE_CARS);
+            if ((int)numRows>0){
+                dbAvailable = true;
+            }
+        } catch (Exception e){
+            Log.e("DB", "DB Cars is not found");
+        }
+        try {
+            if (dbAvailable==false){
+            DBHelperDrivers dbHelper;
+            dbHelper = new DBHelperDrivers(MainActivity.this);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            Cursor cursor = database.query(DBHelperDrivers.TABLE_DRIVERS, null, null, null, null, null, null);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            long numRows = DatabaseUtils.queryNumEntries(db, DBHelperDrivers.TABLE_DRIVERS);
+            if ((int)numRows>0){
+                dbAvailable = true;
+            }}
+        } catch (Exception e){
+            Log.e("DB", "DB Drivers is not found");
+        }
 
+        if (dbAvailable){
+            selectMenuItem2(R.id.nav_home);}
+        else
+            selectMenuItem(R.id.nav_home);
 
-
-
-
-        selectMenuItem2(R.id.nav_home); // сейчас первый этот экран, поиск по автомобилю и водиле
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         MyAsyncTask myAsyncTask = new MyAsyncTask(MainActivity.this);
@@ -121,10 +149,12 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         menuItem.setChecked(true);
         assert getSupportActionBar() != null;
         if (id == R.id.nav_home) {
-            //if (то то){ cюда также условие при котором будет открываться тот или иной фрагмент
-            //fragmentTransaction.replace(R.id.nav_host_fragment, homeFragment);
-            // }else if fragmentTransaction.replace(R.id.nav_host_fragment, homeFragment2);
-            fragmentTransaction.replace(R.id.nav_host_fragment, homeFragment2); // по умолчанию открывается второй для наглядности
+
+            if (dbAvailable)
+                fragmentTransaction.replace(R.id.nav_host_fragment, homeFragment2);
+            else
+                fragmentTransaction.replace(R.id.nav_host_fragment, homeFragment);
+
 
             getSupportActionBar().setTitle(R.string.menu_home);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
