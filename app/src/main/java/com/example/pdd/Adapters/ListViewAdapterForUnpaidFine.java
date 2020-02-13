@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,7 +131,8 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             {
             holder.txtTotalSuma.setText(totalSuma[position]+"р.");
             holder.txtTotalSuma.setPaintFlags(holder.txtTotalSuma.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }else holder.txtTotalSuma.setVisibility(View.GONE);
+        }else {holder.txtTotalSuma.setVisibility(View.GONE);
+            }
 
         if(discountDate[position].length()<6){
             holder.txtDiscountDate.setVisibility(View.GONE);

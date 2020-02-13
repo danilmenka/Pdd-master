@@ -150,10 +150,6 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
 
-
-
-
-
         setTextNonNull(postNum,textView1);
         setTextNonNull(formDate(postDate),textView2);
         setTextNonNull(suma,textView3);
