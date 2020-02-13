@@ -22,6 +22,10 @@ import com.example.pdd.DBHelp.DBHelperUnpaidFines;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Staffdetails_Activity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textView1;
@@ -146,12 +150,16 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
 
+
+
+
+
         setTextNonNull(postNum,textView1);
-        setTextNonNull(postDate,textView2);
+        setTextNonNull(formDate(postDate),textView2);
         setTextNonNull(suma,textView3);
         setTextNonNull(totalSuma,textView4);
         setTextNonNull(koapCode+" "+ text,textView5);
-        setTextNonNull(discountDate,textView6);
+        setTextNonNull(formDate(discountDate),textView6);
         setTextNonNull(address,textView7);
         setTextNonNull(regnumTxt,textView8);
         setTextNonNull(lisenceNumTxt,textView9);
@@ -184,5 +192,27 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
     private void setTextNonNull (String string, TextView textView){
         if ((string.equals("null"))||(string.equals(""))) string = "Информация отсутствует";
         textView.setText(string);
+    }
+    private String formDate (String date){
+        String dateDate;
+        String dateTime;
+        if (date.length()>10){
+            dateDate= date.substring(0,10);
+            dateTime = date.substring(11,16);
+            String strCurrentDate = dateDate;
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = null;
+            try {
+                newDate = format.parse(strCurrentDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            format = new SimpleDateFormat("dd.mm.yyyy");
+            if(dateTime.equals("00:00"))
+            date = format.format(newDate);
+              else
+             date = format.format(newDate)+" в "+dateTime+"(Мск)";
+        }
+        return date;
     }
 }
