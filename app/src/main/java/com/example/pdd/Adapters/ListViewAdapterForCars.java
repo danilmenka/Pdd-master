@@ -133,7 +133,6 @@ public class ListViewAdapterForCars extends BaseAdapter implements AsyncPattern.
                                 asyncPattern.execute();
                             }
                         }).create().show();
-
             }
         });
 

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.pdd.DBHelp.DBHelperDrivers;
 import com.example.pdd.Requests.AsyncPattern;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Edit_Add_Driver_Activity extends AppCompatActivity implements AsyncPattern.AsyncPatternCallBack {
     EditText editText1;
@@ -68,6 +71,18 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
             @Override
             public void onClick(View v) {
 
+
+                if (String.valueOf(editText1.getText()).equals("")){
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Введите имя водителя", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (validateLicenseNum(String.valueOf(editText2.getText()))==false){
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Номер удостоверения введен неверно", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else
+
+
                 if (name.isEmpty()){
                     List nameValuePairs = new ArrayList(2);
                     nameValuePairs.add(new BasicNameValuePair("title",String.valueOf( editText1.getText())));
@@ -83,8 +98,17 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
                     asyncPattern.registrationAsyncPatternCallBack(Edit_Add_Driver_Activity.this);
                     asyncPattern.execute();
                 }
+
             }
         });
+    }
+    public boolean validateLicenseNum(final String password){
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^\\d{2}[а-яА-Я0-9]{2}\\d{6}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,9 +141,8 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
         }
         try {
             JSONObject jsonObject = new JSONObject(answer);
-            String s1 = jsonObject.getString("data");
+
             ContentValues contentValues = new ContentValues();
-            jsonObject = new JSONObject(s1);
             contentValues.put(DBHelperDrivers.KEY_IDDRIVER,jsonObject.getString("id"));
             contentValues.put(DBHelperDrivers.KEY_LICENSENUM, String.valueOf(editText2.getText()));
             contentValues.put(DBHelperDrivers.KEY_SCANDATE,"txt");

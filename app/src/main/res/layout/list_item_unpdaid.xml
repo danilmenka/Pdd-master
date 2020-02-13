@@ -26,6 +26,20 @@
             android:text=" УИН"
             android:textColor="@color/colorAccent5" />
 
+
+        <TextView
+            android:id="@+id/text_unpaid_totalSuma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="133dp"
+            android:maxLines="1"
+            android:text="8000"
+            android:textSize="18sp" />
+
+
+
+
         <TextView
             android:id="@+id/text_unpaid3"
             android:layout_width="wrap_content"

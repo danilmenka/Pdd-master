@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +101,7 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             holder.txtSuma = (TextView) convertView.findViewById(R.id.text_unpaid5);
             holder.txtDiscountDate = (TextView) convertView.findViewById(R.id.text_unpaid7);
             holder.paiButton = (Button) convertView.findViewById(R.id.text_unpaid6);
-
+            holder.txtTotalSuma = (TextView) convertView.findViewById(R.id.text_unpaid_totalSuma);
             holder.cardView = (CardView)convertView.findViewById(R.id.card_view_unpaid);
             convertView.setTag(holder);
         }
@@ -109,11 +110,37 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             holder = (ViewHolder) convertView.getTag();
         }
 
+
+        int ttSm=0;
+        int sm=0;
+        try {
+            ttSm= Integer.parseInt(totalSuma[position]);
+            sm = Integer.parseInt(suma[position]);
+        }catch (Exception e){
+        }
+
+
+        if(totalSuma[position].equals("")||totalSuma[position].equals(null)){
+            holder.txtTotalSuma.setVisibility(View.GONE);
+        }else
+            if(ttSm>sm)
+            {
+            holder.txtTotalSuma.setText(totalSuma[position]+"р.");
+            holder.txtTotalSuma.setPaintFlags(holder.txtTotalSuma.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }else holder.txtTotalSuma.setVisibility(View.GONE);
+
+        if(discountDate[position].length()<6){
+            holder.txtDiscountDate.setVisibility(View.GONE);
+        }
+
         holder.txtText.setText(text[position]);
         holder.txtPostDate.setText(postDate[position]);
         holder.txtPostNum.setText(postNum[position]);
-        holder.txtSuma.setText(suma[position]);
+        holder.txtSuma.setText(suma[position]+"р.");
         holder.txtDiscountDate.setText(discountDate[position]);
+
+
+
 
 
         holder.paiButton.setOnClickListener(new View.OnClickListener() {
