@@ -22,6 +22,7 @@ import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.Edit_Add_Auto_Activity;
 import com.example.pdd.R;
 import com.example.pdd.Requests.AsyncPattern;
+import com.example.pdd.Staffdetails_Activity;
 
 import org.apache.http.message.BasicNameValuePair;
 
@@ -131,7 +132,9 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("TAGFFFFFFFFFF",id[position]);
+                Intent intent4221= new Intent(context, Staffdetails_Activity.class);
+                intent4221.putExtra("id",id[position]);
+                context.startActivity(intent4221);
             }
         });
 
