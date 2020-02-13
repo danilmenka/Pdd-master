@@ -27,7 +27,10 @@ import com.example.pdd.Staffdetails_Activity;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ListViewAdapterForUnpaidFine extends BaseAdapter
@@ -133,6 +136,35 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             holder.txtDiscountDate.setVisibility(View.GONE);
         }
 
+        if (postDate[position].length()>10){
+        postDate[position]= postDate[position].substring(0,10);
+
+            String strCurrentDate = postDate[position];
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = null;
+            try {
+                newDate = format.parse(strCurrentDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            format = new SimpleDateFormat("dd.mm.yyyy");
+            postDate[position] = format.format(newDate);
+        }
+        if (discountDate[position].length()>10){
+
+        discountDate[position].substring(0,10);
+        String strCurrentDate = discountDate[position];
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        Date newDate = null;
+        try {
+            newDate = format.parse(strCurrentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        format = new SimpleDateFormat("dd.mm.yyyy");
+        discountDate[position] = "Скидка 50% осталась до "+format.format(newDate);
+    }
+
         holder.txtText.setText(text[position]);
         holder.txtPostDate.setText(postDate[position]);
         holder.txtPostNum.setText(postNum[position]);
@@ -148,13 +180,10 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             public void onClick(View v) {
                 Log.e("TAG",id[position]);
                 Intent intent41= new Intent(context, Edit_Add_Auto_Activity.class);
-             /*   intent41.putExtra("name",names[position]);
-                intent41.putExtra("regNumber",regNumbers[position]);
-                intent41.putExtra("svid",svids[position]);
-                intent41.putExtra("id",id[position]);*/
                 context.startActivity(intent41);
             }
         });
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
