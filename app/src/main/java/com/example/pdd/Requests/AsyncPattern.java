@@ -76,11 +76,11 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
     protected void onPreExecute() {
         mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         //Всплывающее окно при работе потока
-        dialog = new ProgressDialog(context);
+     /*   dialog = new ProgressDialog(context);
         dialog.setMessage("Загрузка...");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
-        dialog.show();
+        dialog.show();*/
         super.onPreExecute();
     }
 

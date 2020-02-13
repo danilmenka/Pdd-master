@@ -67,6 +67,7 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (name.isEmpty()){
                     List nameValuePairs = new ArrayList(2);
                     nameValuePairs.add(new BasicNameValuePair("title",String.valueOf( editText1.getText())));
@@ -82,7 +83,6 @@ public class Edit_Add_Driver_Activity extends AppCompatActivity implements Async
                     asyncPattern.registrationAsyncPatternCallBack(Edit_Add_Driver_Activity.this);
                     asyncPattern.execute();
                 }
-
             }
         });
     }

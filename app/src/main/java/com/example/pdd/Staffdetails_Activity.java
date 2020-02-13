@@ -156,7 +156,6 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         setTextNonNull(regnumTxt,textView8);
         setTextNonNull(lisenceNumTxt,textView9);
 
-
     }
 
     @Override
