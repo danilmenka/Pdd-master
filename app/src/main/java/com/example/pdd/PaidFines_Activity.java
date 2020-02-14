@@ -4,18 +4,22 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+
+import com.example.pdd.Adapters.ListViewAdapterForPaidFine;
+import com.example.pdd.DBHelp.DBHelperFines;
 
 public class PaidFines_Activity extends AppCompatActivity {
-    //TextView textView1;
-    //TextView textView2;
-    //TextView textView3;
-    //TextView textView4;
-    //TextView textView5;
-    //TextView textView6;
-    //TextView textView7;
+    private ListView lview;
+    private ListViewAdapterForPaidFine lviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +76,67 @@ public class PaidFines_Activity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        lview = (ListView) findViewById(R.id.list_view_payed);
+        lview.setClickable(false);
+
+        String id[];
+        String text[];
+        String postDate[];
+        String postNum[];
+        String suma[];
+        String totalSuma[];
+        String discountDate[];
+
+        String svids[];
+        try {
+            DBHelperFines dbHelper;
+            dbHelper = new DBHelperFines(PaidFines_Activity.this);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            Cursor cursor = database.query(DBHelperFines.TABLE_FINES, null, null, null, null, null, null);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            long numRows = DatabaseUtils.queryNumEntries(db, DBHelperFines.TABLE_FINES);
+            id = new String [(int)numRows];
+            text = new String [(int)numRows];
+            postDate = new String [(int)numRows];
+            postNum = new String [(int)numRows];
+            suma = new String [(int)numRows];
+            totalSuma = new String [(int)numRows];
+            discountDate = new String [(int)numRows];
+
+            if (cursor.moveToFirst()) {
+                int idIndex = cursor.getColumnIndex(DBHelperFines.KEY_IDFINE);
+                int textIndex = cursor.getColumnIndex(DBHelperFines.KEY_KOAPTEXT);
+                int postDateIndex = cursor.getColumnIndex(DBHelperFines.KEY_POSTDATE);
+                int postNumIndex = cursor.getColumnIndex(DBHelperFines.KEY_POSTNUM);
+                int sumaIndex = cursor.getColumnIndex(DBHelperFines.KEY_SUMA);
+                int totalSumaIndex = cursor.getColumnIndex(DBHelperFines.KEY_TOTALSUMA);
+                int discountDateIndex = cursor.getColumnIndex(DBHelperFines.KEY_DISCOUNTDATE);
+                int k =0;
+                do {
+                    id[k]=cursor.getString(idIndex);
+                    text[k]=cursor.getString(textIndex);
+                    postDate[k]=cursor.getString(postDateIndex);
+                    postNum[k]=cursor.getString(postNumIndex);
+                    suma[k]=cursor.getString(sumaIndex);
+                    totalSuma[k]=cursor.getString(totalSumaIndex);
+                    discountDate[k]=cursor.getString(discountDateIndex);
+                    k++;
+                } while (cursor.moveToNext());
+            } else Log.d("mLog","0 rows");
+            cursor.close();
+
+            lviewAdapter = new ListViewAdapterForPaidFine(PaidFines_Activity.this,id,text,postDate,postNum,suma,totalSuma,discountDate);
+            lview.setAdapter(lviewAdapter);
+
+        } catch (Exception e){
+            Log.e("DB","DB not found");
+        }
+        View empty = findViewById(R.id.list_view_texpayd_empty);
+        lview.setEmptyView(empty);
+        super.onResume();
     }
 }
