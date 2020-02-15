@@ -22,6 +22,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.Edit_Add_Auto_Activity;
+import com.example.pdd.PayActivity;
 import com.example.pdd.R;
 import com.example.pdd.Requests.AsyncPattern;
 import com.example.pdd.Staffdetails_Activity;
@@ -128,7 +129,7 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
         }else
             if(ttSm>sm)
             {
-            holder.txtTotalSuma.setText(totalSuma[position]+"р.");
+            holder.txtTotalSuma.setText(totalSuma[position]+" р.");
             holder.txtTotalSuma.setPaintFlags(holder.txtTotalSuma.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }else {holder.txtTotalSuma.setVisibility(View.GONE);
             }
@@ -163,13 +164,13 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
             e.printStackTrace();
         }
         format = new SimpleDateFormat("dd.mm.yyyy");
-        discountDate[position] = "Скидка 50% осталась до "+format.format(newDate);
+        discountDate[position] = "Скидка 50% действительна до "+format.format(newDate);
     }
 
         holder.txtText.setText(text[position]);
         holder.txtPostDate.setText(postDate[position]);
         holder.txtPostNum.setText(postNum[position]);
-        holder.txtSuma.setText(suma[position]+"р.");
+        holder.txtSuma.setText(suma[position]+" р.");
         holder.txtDiscountDate.setText(discountDate[position]);
 
 
@@ -179,9 +180,11 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
         holder.paiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("TAG",id[position]);
-                Intent intent41= new Intent(context, Edit_Add_Auto_Activity.class);
-                context.startActivity(intent41);
+                String idPosition [] = new String [1];
+                idPosition[0] = id[position];
+                Intent intent411= new Intent(context, PayActivity.class);
+                intent411.putExtra("id",idPosition);
+                context.startActivity(intent411);
             }
         });
 

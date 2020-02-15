@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,8 @@ public class PayActivity extends AppCompatActivity {
 
     EditText editText1;
     EditText editText2;
-
+    String name;
+    String id [];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,13 +25,27 @@ public class PayActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Оплатить штраф");
+        try {
+            id = getIntent().getExtras().getStringArray("id");
+    Log.e("ZAZUBR",id[0]);
+        } catch (Exception e){
+            Log.e("Tag","new Car");
+        }
+    //    editText1=findViewById(R.id.etPhone);
 
-        editText1=findViewById(R.id.editNumberTelephone);
+
+
+
+
+
         editText2=findViewById(R.id.editPHIO);
         Button button=findViewById(R.id.butPayOfPayActivity);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
 
             }
         });

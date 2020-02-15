@@ -152,8 +152,7 @@ public class DetailPaidFine extends AppCompatActivity implements View.OnClickLis
               /*      Intent intent421=new Intent(Staffdetails_Activity.this, PayActivity.class);
                     startActivity(intent421);*/
                     break;
-                case R.id.buttAppeal:
-                    break;
+
                 case R.id.butHide:
                     break;
             }

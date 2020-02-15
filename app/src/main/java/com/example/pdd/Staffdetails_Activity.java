@@ -15,18 +15,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pdd.DBHelp.DBHelperFines;
 import com.example.pdd.DBHelp.DBHelperUnpaidFines;
+import com.example.pdd.Requests.AsyncPattern;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Staffdetails_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Staffdetails_Activity extends AppCompatActivity implements View.OnClickListener, AsyncPattern.AsyncPatternCallBack {
 
     TextView textView1;
     TextView textView2;
@@ -41,8 +46,20 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
     ImageView imageView;
     Button button1;
     Button button2;
-    Button button3;
     Button button4;
+    String id="";
+    String text="";
+    String postDate="";
+    String postNum="";
+    String suma="";
+    String totalSuma="";
+    String discountDate="";
+    String koapCode="";
+    String address="";
+    String regnum="";
+    String lisenceNum="";
+    String regnumTxt="";
+    String lisenceNumTxt="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +71,7 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Детали штрафа");
 
-        String id="";
-        String text="";
-        String postDate="";
-        String postNum="";
-        String suma="";
-        String totalSuma="";
-        String discountDate="";
-        String koapCode="";
-        String address="";
-        String regnum="";
-        String lisenceNum="";
-        String regnumTxt="";
-        String lisenceNumTxt="";
+
 
 
         Bundle arguments = getIntent().getExtras();
@@ -143,23 +148,36 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         imageView=findViewById(R.id.imageViewOfStaffDetail);
         button1=findViewById(R.id.butLookMap);
         button2=findViewById(R.id.butPayStaff);
-        button3=findViewById(R.id.buttAppeal);
         button4=findViewById(R.id.butHide);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
-        button3.setOnClickListener(this);
         button4.setOnClickListener(this);
 
         setTextNonNull(postNum,textView1);
         setTextNonNull(formDate(postDate),textView2);
+
         setTextNonNull(suma,textView3);
         setTextNonNull(totalSuma,textView4);
+
+        if ((suma.equals("null"))||(suma.equals(""))) {
+            textView3.setText("Информация отсутствует");
+        }else {
+        textView3.setText(suma+" р.");}
+
+        if ((totalSuma.equals("null"))||(totalSuma.equals(""))) {
+            textView3.setText("Информация отсутствует");
+        }else {
+            textView4.setText(totalSuma+" р.");}
+
+
+
         if(koapCode.equals("null")) setTextNonNull(text,textView5);
         else setTextNonNull(koapCode+" "+ text,textView5);
         setTextNonNull(formDate(discountDate),textView6);
         setTextNonNull(address,textView7);
         setTextNonNull(regnumTxt,textView8);
         setTextNonNull(lisenceNumTxt,textView9);
+        button2.setText("Оплатить "+suma+" р.");
 
     }
 
@@ -169,12 +187,18 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
             case R.id.butLookMap:
                 break;
             case R.id.butPayStaff:
-                Intent intent421=new Intent(Staffdetails_Activity.this, PayActivity.class);
-                startActivity(intent421);
-                break;
-            case R.id.buttAppeal:
+                String idPosition [] = new String [1];
+                idPosition[0] = id;
+                Intent intent411= new Intent(Staffdetails_Activity.this, PayActivity.class);
+                intent411.putExtra("id",idPosition);
+                startActivity(intent411);
                 break;
             case R.id.butHide:
+
+                AsyncPattern asyncPattern = new AsyncPattern(Staffdetails_Activity.this,"fine/"+id,null,false,false,true);
+                asyncPattern.registrationAsyncPatternCallBack(Staffdetails_Activity.this);
+                asyncPattern.execute();
+
                 break;
         }
     }
@@ -211,5 +235,28 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
              date = format.format(newDate)+" в "+dateTime+"(Мск)";
         }
         return date;
+    }
+
+
+    @Override
+    public void doAsyncPatternCallBack(String answer) {
+        try {
+            JSONObject jsonObject = new JSONObject(answer);
+            String k = jsonObject.getString("data");
+            if (k.equals(true)){
+                Intent i = new Intent(Staffdetails_Activity.this,MainActivity.class);
+                i.putExtra("nameClass","first");
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        }catch (Exception e){}
+        try {
+            JSONObject jsonObject = new JSONObject(answer);
+            String k = jsonObject.getString("message");
+            Toast toast = Toast.makeText(Staffdetails_Activity.this.getApplicationContext(),
+                    k, Toast.LENGTH_SHORT);
+            toast.show();
+        }catch (Exception e){}
     }
 }

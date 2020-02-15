@@ -155,16 +155,17 @@
 
     <Button
         android:id="@+id/butLookMap"
-        android:background="@color/colorAccent3"
-        android:textColor="@color/colorAccent5"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent3"
         android:text="Посмотреть на карте"
+        android:textColor="@color/colorAccent5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <Button
         android:id="@+id/butPayStaff"
@@ -179,28 +180,16 @@
         app:layout_constraintTop_toBottomOf="@+id/butLookMap" />
 
     <Button
-        android:id="@+id/buttAppeal"
-        android:background="@color/colorAccent3"
-        android:textColor="@color/colorAccent5"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Обжаловать"
-        app:layout_constraintEnd_toEndOf="@+id/butPayStaff"
-        app:layout_constraintStart_toStartOf="@+id/butPayStaff"
-        app:layout_constraintTop_toBottomOf="@+id/butPayStaff" />
-
-    <Button
         android:id="@+id/butHide"
-        android:background="@color/colorAccent3"
-        android:textColor="@color/colorAccent5"
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorAccent3"
         android:text="Скрыть"
-        app:layout_constraintEnd_toEndOf="@+id/buttAppeal"
-        app:layout_constraintStart_toStartOf="@+id/buttAppeal"
-        app:layout_constraintTop_toBottomOf="@+id/buttAppeal" />
+        android:textColor="@color/colorAccent5"
+        app:layout_constraintEnd_toEndOf="@+id/butPayStaff"
+        app:layout_constraintStart_toStartOf="@+id/butPayStaff"
+        app:layout_constraintTop_toBottomOf="@+id/butPayStaff" />
 
     <TextView
         android:id="@+id/NumberPostOfStaffDetail"

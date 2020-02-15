@@ -34,6 +34,14 @@ public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
     private ListView lview;
     private ListViewAdapterForUnpaidFine lviewAdapter;
     private HomeViewModel2 homeViewModel2;
+    String id[];
+    String text[];
+    String postDate[];
+    String postNum[];
+    String suma[];
+    String totalSuma[];
+    String discountDate[];
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel2 = ViewModelProviders.of(this).get(HomeViewModel2.class);
@@ -44,6 +52,7 @@ public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
             @Override
             public void onClick(View v) {
                 Intent intent411= new Intent(getActivity(), PayActivity.class);
+                intent411.putExtra("id",id);
                 startActivity(intent411);
             }
         });
@@ -61,13 +70,6 @@ public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
     public void onResume() {
         lview = (ListView) getActivity().findViewById(R.id.list_view_unpay);
         lview.setClickable(false);
-        String id[];
-        String text[];
-        String postDate[];
-        String postNum[];
-        String suma[];
-        String totalSuma[];
-        String discountDate[];
 
 
         String svids[];
@@ -94,6 +96,7 @@ public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
                 int sumaIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_SUMA);
                 int totalSumaIndex = cursor.getColumnIndex(DBHelperFines.KEY_TOTALSUMA);
                 int discountDateIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_DISCOUNTDATE);
+
                 int k =0;
                 do {
                     id[k]=cursor.getString(idIndex);
@@ -145,16 +148,12 @@ public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
     @Override
     public void doMyCallBack() {
 try {
+
+
+        Log.e("SSSSSSSSSSSSSSSS","fffffffffffffffffffffffffff");
+
         lview = (ListView) getActivity().findViewById(R.id.list_view_unpay);
         lview.setClickable(false);
-        String id[];
-        String text[];
-        String postDate[];
-        String postNum[];
-        String suma[];
-        String totalSuma[];
-        String discountDate[];
-        String svids[];
         try {
             DBHelperUnpaidFines dbHelper;
             dbHelper = new DBHelperUnpaidFines(getActivity());
@@ -182,7 +181,7 @@ try {
                 int k =0;
                 do {
                     id[k]=cursor.getString(idIndex);
-                    text[k]="ZALUPKA";
+                    text[k]=cursor.getString(textIndex);
                     postDate[k]=cursor.getString(postDateIndex);
                     postNum[k]=cursor.getString(postNumIndex);
                     suma[k]=cursor.getString(sumaIndex);

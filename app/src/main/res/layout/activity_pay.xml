@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".PayActivity">
 
-    <EditText
-        android:id="@+id/editNumberTelephone"
-        android:layout_width="330dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorAccent2"
-        android:ems="10"
-        android:hint="  Номер телефона"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editPHIO"
@@ -30,10 +16,23 @@
         android:ems="10"
         android:hint="  ФИО"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editNumberTelephone"
-        app:layout_constraintStart_toStartOf="@+id/editNumberTelephone"
-        app:layout_constraintTop_toBottomOf="@+id/editNumberTelephone" />
+        app:layout_constraintEnd_toEndOf="@+id/masked_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/masked_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/masked_edit_text" />
 
+    <com.github.pinball83.maskededittext.MaskedEditText
+        android:id="@+id/masked_edit_text"
+        android:layout_width="330dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent2"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mask="8 (***) *** **-**"
+        app:maskIconColor="@color/colorAccent2"
+        app:notMaskedSymbol="*" />
     <Button
         android:id="@+id/butPayOfPayActivity"
         android:layout_width="330dp"
