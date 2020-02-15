@@ -154,7 +154,8 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         setTextNonNull(formDate(postDate),textView2);
         setTextNonNull(suma,textView3);
         setTextNonNull(totalSuma,textView4);
-        setTextNonNull(koapCode+" "+ text,textView5);
+        if(koapCode.equals("null")) setTextNonNull(text,textView5);
+        else setTextNonNull(koapCode+" "+ text,textView5);
         setTextNonNull(formDate(discountDate),textView6);
         setTextNonNull(address,textView7);
         setTextNonNull(regnumTxt,textView8);

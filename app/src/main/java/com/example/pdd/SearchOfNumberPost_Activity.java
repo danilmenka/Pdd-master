@@ -5,13 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class SearchOfNumberPost_Activity extends AppCompatActivity {
+import com.example.pdd.Requests.AsyncPattern;
+import com.example.pdd.Requests.MyAsyncTask;
+
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchOfNumberPost_Activity extends AppCompatActivity implements AsyncPattern.AsyncPatternCallBack{
     EditText editText;
 
     @Override
@@ -28,6 +38,20 @@ public class SearchOfNumberPost_Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(editText.getText().length()==0){
+                    Toast toast = Toast.makeText(getApplicationContext(),"Введите номер постановления", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    String numKoap = "0355431010118022700009506";
+                    String answer;
+
+                    List nameValuePairs = new ArrayList(1);
+                    nameValuePairs.add(new BasicNameValuePair("postnum",String.valueOf(editText.getText())));
+                    AsyncPattern asyncPattern= new AsyncPattern(SearchOfNumberPost_Activity.this,"fine/search/bypostnum",nameValuePairs,true,false,false);
+                    asyncPattern.registrationAsyncPatternCallBack(SearchOfNumberPost_Activity.this);
+                    asyncPattern.execute();
+                }
 
             }
         });
@@ -60,5 +84,18 @@ public class SearchOfNumberPost_Activity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void doAsyncPatternCallBack(String answer) {
+      /*  MyAsyncTask myAsyncTask = new MyAsyncTask(SearchOfNumberPost_Activity.this);
+        myAsyncTask.execute();*/
+
+        Intent i = new Intent(SearchOfNumberPost_Activity.this,MainActivity.class);
+        i.putExtra("nameClass","first");
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+
     }
 }

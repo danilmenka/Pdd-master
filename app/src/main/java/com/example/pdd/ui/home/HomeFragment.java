@@ -38,6 +38,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // кнопка поиска штрафов
+
+
+
+
+
+
+
+
             }
         });
         setHasOptionsMenu (true);

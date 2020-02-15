@@ -45,7 +45,6 @@ public class ListViewAdapterForUnpaidFine extends BaseAdapter
     String totalSuma[];
     String discountDate[];
 
-
     public ListViewAdapterForUnpaidFine(Activity context, String id[],String text[],String postDate[],String postNum[],String suma[],String totalSuma[],String discountDate[]) {
         super();
         this.context = context;

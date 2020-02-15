@@ -1,5 +1,6 @@
 package com.example.pdd;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     PushFragment pushFragment;
     FragmentTransaction fragmentTransaction;
     Boolean dbAvailable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         //if( такое то такое то){
         //selectMenuItem(R.id.nav_home);
         // }else if  selectMenuItem2(R.id.nav_home);
+        dbAvailable = false;
+
+        try {
+            Bundle arguments = getIntent().getExtras();
+            String txtIntent = arguments.get("nameClass").toString();
+            if (txtIntent.equals("first"))dbAvailable=true;
+        }catch (Exception e){}
+
+
+
         try {
             DBHelperCars dbHelper;
             dbHelper = new DBHelperCars(MainActivity.this);
@@ -104,16 +116,26 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
             Log.e("DB", "DB Drivers is not found");
         }
 
+
+
+
+
         if (dbAvailable){
             selectMenuItem2(R.id.nav_home);}
         else
             selectMenuItem(R.id.nav_home);
 
+        String txtTwo="";
+        try {
+            Bundle arguments = getIntent().getExtras();
+        txtTwo = arguments.get("TR").toString();
+        }catch (Exception e){}
 
+        if (txtTwo.equals("")){
         ////////////////////////////////////////////////////////////////////////////////////////////////
         MyAsyncTask myAsyncTask = new MyAsyncTask(MainActivity.this);
         myAsyncTask.registrationMyAsyncCallBack(this);
-        myAsyncTask.execute();
+        myAsyncTask.execute();}
     }
 
 
@@ -191,7 +213,15 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void doMyAsyncCallBack(String answer) {
-        Log.e("TESTING",answer);
+        try {
+            Intent intent = getIntent();
+            intent.putExtra("TR","ones");
+            finish();
+            startActivity(intent);
+        }catch (Exception e){}
+
+
+        /*Log.e("TESTING",answer);
 
         DBHelperUnpaidFines dbHelper;
         dbHelper = new DBHelperUnpaidFines(this);
@@ -211,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         } else
             Log.d("mLog","0 rows");
 
-        cursor.close();
+        cursor.close();*/
 
 
 

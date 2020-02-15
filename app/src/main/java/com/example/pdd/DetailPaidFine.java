@@ -135,7 +135,8 @@ public class DetailPaidFine extends AppCompatActivity implements View.OnClickLis
             setTextNonNull(postNum,textView1);
             setTextNonNull(formDate(postDate),textView2);
             setTextNonNull(totalSuma,textView3);
-            setTextNonNull(koapCode+" "+ text,textView4);
+            if(koapCode.equals("null")) setTextNonNull(text,textView4);
+                else setTextNonNull(koapCode+" "+ text,textView4);
             setTextNonNull(address,textView5);
             setTextNonNull(regnumTxt,textView6);
             setTextNonNull(lisenceNumTxt,textView7);
