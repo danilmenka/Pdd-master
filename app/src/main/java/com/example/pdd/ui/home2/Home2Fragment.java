@@ -22,13 +22,14 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.pdd.Adapters.ListViewAdapterForUnpaidFine;
 import com.example.pdd.DBHelp.DBHelperFines;
 import com.example.pdd.DBHelp.DBHelperUnpaidFines;
+import com.example.pdd.MainActivity;
 import com.example.pdd.PaidFines_Activity;
 import com.example.pdd.PayActivity;
 import com.example.pdd.R;
 import com.example.pdd.SearchOfNumberPost_Activity;
 import com.example.pdd.Unpaid_fines_Activity;
 
-public class Home2Fragment extends Fragment {
+public class Home2Fragment extends Fragment implements MainActivity.myCallBack {
 
     private ListView lview;
     private ListViewAdapterForUnpaidFine lviewAdapter;
@@ -93,7 +94,6 @@ public class Home2Fragment extends Fragment {
                 int sumaIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_SUMA);
                 int totalSumaIndex = cursor.getColumnIndex(DBHelperFines.KEY_TOTALSUMA);
                 int discountDateIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_DISCOUNTDATE);
-
                 int k =0;
                 do {
                     id[k]=cursor.getString(idIndex);
@@ -138,5 +138,72 @@ public class Home2Fragment extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
+    public void doMyCallBack() {
+try {
+        lview = (ListView) getActivity().findViewById(R.id.list_view_unpay);
+        lview.setClickable(false);
+        String id[];
+        String text[];
+        String postDate[];
+        String postNum[];
+        String suma[];
+        String totalSuma[];
+        String discountDate[];
+        String svids[];
+        try {
+            DBHelperUnpaidFines dbHelper;
+            dbHelper = new DBHelperUnpaidFines(getActivity());
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            Cursor cursor = database.query(DBHelperUnpaidFines.TABLE_UNPAID_FINES, null, null, null, null, null, null);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            long numRows = DatabaseUtils.queryNumEntries(db, DBHelperUnpaidFines.TABLE_UNPAID_FINES);
+            id = new String [(int)numRows];
+            text = new String [(int)numRows];
+            postDate = new String [(int)numRows];
+            postNum = new String [(int)numRows];
+            suma = new String [(int)numRows];
+            totalSuma = new String [(int)numRows];
+            discountDate = new String [(int)numRows];
+
+            if (cursor.moveToFirst()) {
+                int idIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_IDFINE);
+                int textIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_KOAPTEXT);
+                int postDateIndex = cursor.getColumnIndex(DBHelperFines.KEY_POSTDATE);
+                int postNumIndex = cursor.getColumnIndex(DBHelperFines.KEY_POSTNUM);
+                int sumaIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_SUMA);
+                int totalSumaIndex = cursor.getColumnIndex(DBHelperFines.KEY_TOTALSUMA);
+                int discountDateIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_DISCOUNTDATE);
+
+                int k =0;
+                do {
+                    id[k]=cursor.getString(idIndex);
+                    text[k]="ZALUPKA";
+                    postDate[k]=cursor.getString(postDateIndex);
+                    postNum[k]=cursor.getString(postNumIndex);
+                    suma[k]=cursor.getString(sumaIndex);
+                    totalSuma[k]=cursor.getString(totalSumaIndex);
+                    discountDate[k]=cursor.getString(discountDateIndex);
+                    k++;
+                } while (cursor.moveToNext());
+            } else Log.d("mLog","0 rows");
+            cursor.close();
+
+            lviewAdapter = new ListViewAdapterForUnpaidFine(getActivity(),id,text,postDate,postNum,suma,totalSuma,discountDate);
+            //    lviewAdapter.registrationCallBackUnpaidFine(this);
+            lview.setAdapter(lviewAdapter);
+
+        } catch (Exception e){
+            Log.e("DB","DB not found");
+        }
+        View empty = getActivity().findViewById(R.id.list_view_textunpay_empty);
+        lview.setEmptyView(empty);
+    }catch (Exception e){
+    Log.e("Ex"," H2");
+}
     }
 }
