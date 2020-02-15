@@ -43,9 +43,6 @@ public class SearchOfNumberPost_Activity extends AppCompatActivity implements As
                     Toast toast = Toast.makeText(getApplicationContext(),"Введите номер постановления", Toast.LENGTH_SHORT);
                     toast.show();
                 }else{
-                    String numKoap = "0355431010118022700009506";
-                    String answer;
-
                     List nameValuePairs = new ArrayList(1);
                     nameValuePairs.add(new BasicNameValuePair("postnum",String.valueOf(editText.getText())));
                     AsyncPattern asyncPattern= new AsyncPattern(SearchOfNumberPost_Activity.this,"fine/search/bypostnum",nameValuePairs,true,false,false);

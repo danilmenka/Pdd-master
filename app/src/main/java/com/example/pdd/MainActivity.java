@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     FragmentTransaction fragmentTransaction;
     Boolean dbAvailable;
 
+  /*  public interface MainActyCallBack{
+        void callingBack(){};
+    }
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     @Override
     public void doMyAsyncCallBack(String answer) {
         try {
+
+
             Intent intent = getIntent();
             intent.putExtra("TR","ones");
             finish();

@@ -2,11 +2,8 @@ package com.example.pdd;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.Requests.AsyncPattern;
-import com.example.pdd.ui.Autos.AutosFragment;
-import com.example.pdd.ui.home.HomeFragment;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
