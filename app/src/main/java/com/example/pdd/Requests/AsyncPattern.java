@@ -117,6 +117,8 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
                 htopost.setHeader(new BasicHeader("X-AUTH-TOKEN",tokenString));
             HttpResponse response;
             htopost.setEntity(new UrlEncodedFormEntity(name, "UTF-8"));
+
+
             response = httpclient.execute(htopost);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
