@@ -42,6 +42,7 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
     TextView textView7;
     TextView textView8;
     TextView textView9;
+    int appealCount;
 
     ImageView imageView;
     Button button1;
@@ -169,6 +170,10 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         }else {
             textView4.setText(totalSuma+" р.");}
 
+        appealCount=1;
+
+
+
 
 
         if(koapCode.equals("null")) setTextNonNull(text,textView5);
@@ -240,6 +245,25 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
 
     @Override
     public void doAsyncPatternCallBack(String answer) {
+
+        if (appealCount==1){
+            
+            try {
+                JSONObject jsonObject = new JSONObject(answer);
+                String k = jsonObject.getString("data");
+                if (k.equals(true)){
+                    Intent i = new Intent(Staffdetails_Activity.this,MainActivity.class);
+                    i.putExtra("nameClass","first");
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                }
+            }catch (Exception e){}
+
+            appealCount =2;
+        }
+
+            if (appealCount==2){
         try {
             JSONObject jsonObject = new JSONObject(answer);
             String k = jsonObject.getString("data");
@@ -257,6 +281,9 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
             Toast toast = Toast.makeText(Staffdetails_Activity.this.getApplicationContext(),
                     k, Toast.LENGTH_SHORT);
             toast.show();
-        }catch (Exception e){}
+        }catch (Exception e){}}
+
+
+
     }
 }

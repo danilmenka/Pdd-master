@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mask="8 (***) *** **-**"
+        app:mask="8 (***) ***-**-**"
         app:maskIconColor="@color/colorAccent2"
         app:notMaskedSymbol="*" />
     <Button
