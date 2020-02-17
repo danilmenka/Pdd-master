@@ -10,6 +10,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -57,7 +58,6 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
     ImageView imageView5;
     ImageView imageView6;
 
-
     Button button1;
     Button button2;
     Button button4;
@@ -75,6 +75,7 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
     String regnumTxt="";
     String lisenceNumTxt="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,7 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Детали штрафа");
-
+        String a1[] = new String[20];
         imageView1 = (ImageView)findViewById(R.id.imageViewOfStaffDetail2);
         imageView2 = (ImageView)findViewById(R.id.imageViewOfStaffDetail);
         imageView3 = (ImageView)findViewById(R.id.imageViewOfStaffDetail3);
@@ -157,11 +158,10 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
             DBHelperPhoto dbHelper;
             dbHelper = new DBHelperPhoto(Staffdetails_Activity.this);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
-            Log.e("GERMAN", "ONE");
             Cursor cursor = database.rawQuery("select * from " + DBHelperPhoto.TABLE_PHOTO + " where " + DBHelperPhoto.KEY_IDOBJECT + "='" + id + "'", null);
             int lisenceNumIndex = cursor.getColumnIndex(DBHelperPhoto.KEY_BASE64);
             SQLiteDatabase db = dbHelper.getReadableDatabase();
-            String a1[] = new String[20];
+
             int k = 0;
             if (cursor.moveToFirst()) {
 
@@ -213,12 +213,6 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         } catch (Exception e){
             Log.e("DB","DB not found");
         }
-
-
-
-
-
-
         textView1=findViewById(R.id.NumberPostOfStaffDetail);
         textView2=findViewById(R.id.DatePostOfStaffDetail);
         textView3=findViewById(R.id.SumOfStaffDetail);
@@ -229,6 +223,66 @@ public class Staffdetails_Activity extends AppCompatActivity implements View.OnC
         textView8=findViewById(R.id.photo4884);
         textView9=findViewById(R.id.photo1234);
 
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",1);
+                startActivity(intent42);
+
+            }
+        });
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",2);
+                startActivity(intent42);
+
+            }
+        });
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",3);
+                startActivity(intent42);
+
+            }
+        });
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",4);
+                startActivity(intent42);
+
+            }
+        });
+        imageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",5);
+                startActivity(intent42);
+
+            }
+        });
+        imageView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent42= new Intent(Staffdetails_Activity.this, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("numButton",6);
+                startActivity(intent42);
+
+            }
+        });
 
 
 

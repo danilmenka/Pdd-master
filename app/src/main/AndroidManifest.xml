@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DetailPaidFine"></activity>
+        <activity android:name=".NewAccountEmail"></activity>
+        <activity android:name=".PhotoDetail" />
+        <activity android:name=".DetailPaidFine" />
         <activity android:name=".ActivitySearchAutoDriver" />
         <activity android:name=".PayActivity" />
         <activity android:name=".Staffdetails_Activity" />

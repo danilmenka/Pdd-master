@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.example.pdd.DetailPaidFine;
+import com.example.pdd.PhotoDetail;
 import com.example.pdd.R;
 import com.example.pdd.Staffdetails_Activity;
 
@@ -129,8 +130,10 @@ public class ListViewAdapterForPaidFine extends BaseAdapter
             @Override
             public void onClick(View v) {
                 Log.e("TAG",id[position]);
-            /*    Intent intent41= new Intent(context, Edit_Add_Auto_Activity.class);
-                context.startActivity(intent41);*/
+                Intent intent42= new Intent(context, PhotoDetail.class);
+                intent42.putExtra("id",id);
+                intent42.putExtra("dock","delta");
+                context.startActivity(intent42);
             }
         });
 
