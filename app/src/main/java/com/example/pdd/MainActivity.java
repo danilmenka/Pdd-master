@@ -1,5 +1,6 @@
 package com.example.pdd;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import com.example.pdd.DBHelp.DBHelperCars;
 import com.example.pdd.DBHelp.DBHelperDrivers;
 import com.example.pdd.DBHelp.DBHelperFines;
 import com.example.pdd.DBHelp.DBHelperUnpaidFines;
+import com.example.pdd.Requests.AsyncPattern;
 import com.example.pdd.Requests.MyAsyncTask;
 import com.example.pdd.ui.Autos.AutosFragment;
 import com.example.pdd.ui.Osago.OsagoFrag;
@@ -33,7 +35,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsyncCallBack,NavigationView.OnNavigationItemSelectedListener {
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsyncCallBack,NavigationView.OnNavigationItemSelectedListener, AsyncPattern.AsyncPatternCallBack {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String APP_PREFERENCES = "PddSettings";
@@ -48,10 +56,30 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
     FragmentTransaction fragmentTransaction;
     Boolean dbAvailable;
 
+    @Override
+    public void doAsyncPatternCallBack(String answer) {
+        try {
+            JSONObject jsonObject = new JSONObject(answer);
+            SharedPreferences mSettings;
+            mSettings = MainActivity.this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString("email", jsonObject.getString("email"));
+            editor.putString("subscribeEmail", jsonObject.getString("subscribeEmail"));
+            editor.putString("subscribePush", jsonObject.getString("subscribePush"));
+            editor.apply();
+            Log.e("EEEEEEEEEEEEE","SPRE");
+        }catch (Exception e){}
+
+
+
+
+    }
+
     public interface myCallBack{
         void doMyCallBack();
     }
     myCallBack myCallBack;
+    String email;
     public void registrationMyCallBack(myCallBack myCallBack){
         this.myCallBack = myCallBack;
     }
@@ -68,6 +96,21 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(R.string.menu_home);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        try {
+            Bundle arguments = getIntent().getExtras();
+            email = arguments.get("email").toString();
+            if (email.length()>2){
+            List nameValuePairs;
+            nameValuePairs= new ArrayList(1);
+            nameValuePairs.add(new BasicNameValuePair("email",String.valueOf(email)));
+            AsyncPattern asyncPattern = new AsyncPattern(MainActivity.this,"account",nameValuePairs,false,false,false);
+            asyncPattern.registrationAsyncPatternCallBack(MainActivity.this);
+            asyncPattern.execute();
+
+        }} catch (Exception e){
+            Log.e("Tag","new Driver");
+        }
 
 
         dbAvailable = false;
@@ -166,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
         fragmentTransaction.commit();
     }
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,58 +266,10 @@ public class MainActivity extends AppCompatActivity implements MyAsyncTask.MyAsy
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void doMyAsyncCallBack(String answer) {
-      /*  try {
-
-
-            Intent intent = getIntent();
-            intent.putExtra("TR","ones");
-            finish();
-            startActivity(intent);
-        }catch (Exception e){}*/
 
       try {
           myCallBack.doMyCallBack();
       }catch (Exception e){}
-
-
-        /*Log.e("TESTING",answer);
-
-        DBHelperUnpaidFines dbHelper;
-        dbHelper = new DBHelperUnpaidFines(this);
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-        Cursor cursor = database.query(DBHelperUnpaidFines.TABLE_UNPAID_FINES, null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_TOTALSUMA);
-            int nameIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_POSTNUM);
-            int emailIndex = cursor.getColumnIndex(DBHelperUnpaidFines.KEY_PAID);
-            do {
-                Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
-                        ", name = " + cursor.getString(nameIndex) +
-                        ", email = " + cursor.getString(emailIndex));
-            } while (cursor.moveToNext());
-        } else
-            Log.d("mLog","0 rows");
-
-        cursor.close();*/
-
-
-
-
-
-
-       /* JSONObject json = null;
-        try {
-            json = new JSONObject(answer);
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString("Token", json.getString("uid"));
-            editor.apply();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.e("TESTING", String.valueOf(json.length()));
-*/
 
 
     }
