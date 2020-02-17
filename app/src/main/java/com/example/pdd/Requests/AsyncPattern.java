@@ -86,13 +86,32 @@ public class AsyncPattern extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... strings) {
+
+
+        
         //Запрос на токен
+//////////////////////////////////////////////////////////////////// ТВОЙ ТОКЕН///////////////////////////////////////////
         if (mSettings.contains("Token")) {
-      //     tokenString = "45bc1ca635f090393ffc0236c6e6666ab0c876b1";
-           tokenString = (mSettings.getString("Token",
+            tokenString = (mSettings.getString("Token",
                     ""));
+
             if (tokenString.equals("")) tokenString = getToken(); }
         else {tokenString = getToken();}
+
+
+///////////////////////////////////////////////////////////////////// ТОКЕН С ДАННЫМИ/////////////////////////////
+        /*
+        if (mSettings.contains("Token")) {
+            tokenString = "45bc1ca635f090393ffc0236c6e6666ab0c876b1";
+
+
+            if (tokenString.equals("")) tokenString = getToken(); }
+        else {tokenString = getToken();}*/
+
+
+
+
+
 
         if (postValue){
             answerHTTP = getStringPOST(request, nameValuePairs);}
